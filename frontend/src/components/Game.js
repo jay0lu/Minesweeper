@@ -44,9 +44,8 @@ function Square(props) {
     <button
 			style={buttonStyle}
 			className="square"
-			onClick={props.onClick}
+			onClick={props.handleClick}
 		>
-      {props.value}
     </button>
   )
 }
