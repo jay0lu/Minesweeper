@@ -1,9 +1,17 @@
 import React from 'react'
+import par from 'par'
 import axios from 'axios'
 
 export default function Game (props) {
   let map = props.map
-  let handleClick
+  let handleClick = (num) => {
+    axios.post('http://127.0.0.1:8000/moves', {
+      position: num
+    }).then(
+      // updateMap
+    )
+  }
+
   return(
     <Board
       map={map}
@@ -20,7 +28,7 @@ function Board(props) {
     let bordRow = [];
     for(let j = 0; j < 10; j++) {
       let num = i * 10 + j;
-      bordRow.push(<Square value={num} onClick={props.handleClick} />);
+      bordRow.push(<Square onClick={par(props.onClick, num)} />);
     }
     let row = (
       <div className="board-row">
@@ -36,16 +44,21 @@ function Board(props) {
 }
 
 function Square(props) {
-  const bold = {
-    color: 'red'
-  }
-  let buttonStyle = bold
-  return(
+  let showNum = props.mapNum
+  showNum = -1
+  let renderSquare = showNum === -1 ? (
     <button
-			style={buttonStyle}
 			className="square"
-			onClick={props.handleClick}
-		>
+			onClick={props.onClick}
+		/>
+  ) : (
+    <button
+      disabled
+      className="square"
+    >
+      {showNum}
     </button>
   )
+
+  return renderSquare
 }

@@ -7,7 +7,9 @@ function WelcomePage(props) {
   return(
     <div>
       <Grid container spacing={24}>
-        <Grid item xs={12}>Minesweeper</Grid>
+        <Grid item xs={12}>
+          <h1>Minesweeper</h1>
+        </Grid>
         <Grid item xs={12}></Grid>
         <Grid item xs={12}></Grid>
         <Grid item xs={12}>

@@ -7,8 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "dev": "webpack --mode development ./Minesweeper/frontend/src/index.js --output ./Minesweeper/frontend/static/frontend/main.js",
-    "build": "webpack --mode production ./Minesweeper/frontend/src/index.js --output ./Minesweeper/frontend/static/frontend/main.js"
+    "dev": "webpack --mode development ./frontend/src/index.js --output ./frontend/static/frontend/main.js",
+    "build": "webpack --mode production ./frontend/src/index.js --output ./frontend/static/frontend/main.js"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^3.9.2",
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "par": "^0.3.0"
   }
 }
