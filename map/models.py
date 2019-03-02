@@ -13,7 +13,7 @@ class Map(models.Model):
 
 #   col = 10
 #   row = 10
-#   mine = 10
+#   mine = 30
 
 #   limit = col * row
 
