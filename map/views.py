@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from map.models import Map
+from map.serializers import MapSerializer
+from rest_framework import generics
 
-# Create your views here.
+class MapCreate(generics.ListCreateAPIView):
+  queryset = Map.objects.all()
+  serializer_class = MapSerializer
