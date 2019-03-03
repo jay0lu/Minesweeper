@@ -4,29 +4,41 @@ from rest_framework import generics
 from django.http import HttpResponse
 import json
 from .mineMap import generateMap
+import random
+import string
 
 class MapCreate(generics.ListCreateAPIView):
   queryset = Map.objects.all()
   serializer_class = MapSerializer
 
 
-def create_map(request, user_id=None):
-  if not user_id:
-    user_id = "anonymous"
-  new_map = Map.objects.get_or_create(uid=user_id)
-  mapObject = generateMap(10, 10, 30)
+def createMap(request):
+  uid = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+  col = 10
+  row = 10
+  mines = 30
+  mapObject = generateMap(col, row, mines)
   mineMapLocation = mapObject['mineMap']
   fullMapLocation = mapObject['fullMap']
-  print('===')
-  print(fullMapLocation)
-  print(mineMapLocation)
+  currentMap = [-1] * col * row
+
+  mapModel = Map(uid=uid, mineMap=fullMapLocation, currentMap=newCurrentMap)
+  mapModel.save()
   return HttpResponse({})
 
-def change_map(request):
+def changeMap(request):
   if request.method == "POST":
     data = json.loads(request.body.decode('utf-8'))
     index = data["position"]
-    map_obj = Map.objects.all()[0]
-    map_obj.mineMap = str(index)
-    map_obj.save()
+    mapObj = Map.objects.all()[0]
+    mapObj.mineMap = str(index)
+    mapObj.save()
     return HttpResponse({})
+
+def searchGame(request, uid):
+  try:
+    searchResult = Map.objects.filter(uid=uid).first()
+    print(searchResult)
+  except:
+    print('--')
+  return HttpResponse({})

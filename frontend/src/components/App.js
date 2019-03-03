@@ -14,7 +14,7 @@ class App extends React.Component{
   }
 
   handleNewGame = () => {
-    axios.get('http://127.0.0.1:8000/newGame')
+    axios.get('http://127.0.0.1:8000/newGame/')
       .then(response => {
         this.setState({ start: true })
       }).catch(error => {
@@ -29,7 +29,7 @@ class App extends React.Component{
 
   handleContinue = () => {
     let uid = this.state.uid
-    axios.get('http://127.0.0.1:8000/' + uid)
+    axios.get('http://127.0.0.1:8000/game/' + uid + '/')
       .then(response => {
         this.setState({ start: true })
       }).catch(error => {
