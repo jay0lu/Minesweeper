@@ -16,10 +16,16 @@ class App extends React.Component{
   handleNewGame = () => {
     axios.get('http://127.0.0.1:8000/newGame/')
       .then(response => {
-        this.setState({ start: true })
+        console.log('---',response.data)
+        let data = response.data
+        this.setState({
+          start: true,
+          uid: data.uid,
+          map: data.uid,
+          isMine: data.isMine
+        })
       }).catch(error => {
         console.log(error)
-        this.setState({ start: true }) // for testing
       })
   }
 
@@ -39,7 +45,11 @@ class App extends React.Component{
 
   render() {
     let renderedComponent = this.state.start ? (
-      <Game />
+      <Game
+        map={this.state.map}
+        uid={this.state.uid}
+        isMine={this.state.isMine}
+      />
     ) : (
       <WelcomePage
         handleNewGame={this.handleNewGame}

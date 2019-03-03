@@ -20,11 +20,14 @@ def createMap(request):
   mapObject = generateMap(col, row, mines)
   mineMapLocation = mapObject['mineMap']
   fullMapLocation = mapObject['fullMap']
-  currentMap = [-1] * col * row
+  newCurrentMap = [-1] * col * row
 
   mapModel = Map(uid=uid, mineMap=fullMapLocation, currentMap=newCurrentMap)
   mapModel.save()
-  return HttpResponse({})
+  return HttpResponse({
+    uid: uid,
+    map: newCurrentMap
+  })
 
 def changeMap(request):
   if request.method == "POST":
