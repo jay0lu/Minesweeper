@@ -2,14 +2,32 @@ import React from 'react'
 import par from 'par'
 import axios from 'axios'
 
-export default function Game (props) {
+
+export default function Game(props) {
   let map = props.map
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  }
+
   let handleClick = (num) => {
-    axios.post('http://127.0.0.1:8000/moves', {
+    let data = {
       position: num
-    }).then(
-      // updateMap
-    )
+    }
+
+    axios.defaults.xsrfCookieName = 'csrftoken'
+    axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+    axios({
+      method: 'post',
+      url: 'http://127.0.0.1:8000/moves/',
+      data: JSON.stringify(data)
+    })
+  }
+
+  let updateMap = (currentMap) => {
+    map = currentMap
   }
 
   return(
