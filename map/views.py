@@ -1,7 +1,7 @@
 from map.models import Map
 from map.serializers import MapSerializer
 from rest_framework import generics
-from django.http import HttpResponse
+from django.http import JsonResponse
 import json
 from .mineMap import generateMap
 import random
@@ -24,9 +24,9 @@ def createMap(request):
 
   mapModel = Map(uid=uid, mineMap=fullMapLocation, currentMap=newCurrentMap)
   mapModel.save()
-  return HttpResponse({
-    uid: uid,
-    map: newCurrentMap
+  return JsonResponse({
+    "uid": uid,
+    "map": newCurrentMap
   })
 
 def changeMap(request):
@@ -36,7 +36,7 @@ def changeMap(request):
     mapObj = Map.objects.all()[0]
     mapObj.mineMap = str(index)
     mapObj.save()
-    return HttpResponse({})
+    return JsonResponse({})
 
 def searchGame(request, uid):
   try:
@@ -44,4 +44,4 @@ def searchGame(request, uid):
     print(searchResult)
   except:
     print('--')
-  return HttpResponse({})
+  return JsonResponse({})
