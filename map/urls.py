@@ -5,5 +5,5 @@ urlpatterns = [
     path('api/map/', views.MapCreate.as_view() ),
     path('newGame/', views.createMap),
     re_path('game/(?P<uid>.*)/$', views.searchGame),
-    path('moves/', views.changeMap)
+    re_path('moves/(?P<move>.*)/$', views.changeMap)
 ]

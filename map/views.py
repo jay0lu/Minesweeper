@@ -29,8 +29,9 @@ def createMap(request):
     "map": newCurrentMap
   })
 
-def changeMap(request):
+def changeMap(request, move):
   if request.method == "POST":
+    print(move)
     data = json.loads(request.body.decode('utf-8'))
     index = data["position"]
     mapObj = Map.objects.all()[0]
