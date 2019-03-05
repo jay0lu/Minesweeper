@@ -5,6 +5,7 @@ import axios from 'axios'
 
 export default function Game(props) {
   let map = props.map
+  let uid = props.uid
 
   const config = {
     headers: {
@@ -21,7 +22,7 @@ export default function Game(props) {
     axios.defaults.xsrfHeaderName = 'X-CSRFToken'
     axios({
       method: 'post',
-      url: 'http://127.0.0.1:8000/moves/',
+      url: 'http://127.0.0.1:8000/moves/' + num,
       data: JSON.stringify(data)
     })
   }
@@ -31,10 +32,13 @@ export default function Game(props) {
   }
 
   return(
-    <Board
-      map={map}
-      onClick={handleClick}
-    />
+    <div>
+      <h1>Uid: {uid}</h1>
+      <Board
+        map={map}
+        onClick={handleClick}
+      />
+    </div>
   )
 }
 
@@ -45,8 +49,8 @@ function Board(props) {
   for(let i = 0; i < 10; i++) {
     let bordRow = [];
     for(let j = 0; j < 10; j++) {
-      let num = i * 10 + j;
-      bordRow.push(<Square onClick={par(props.onClick, num)} />);
+      let index = i * 10 + j;
+      bordRow.push(<Square onClick={par(props.onClick, index)} map={map} index={index} />);
     }
     let row = (
       <div className="board-row">
@@ -62,15 +66,19 @@ function Board(props) {
 }
 
 function Square(props) {
-  let showNum = props.mapNum
-  showNum = -1
+  let map = props.map
+  let index = props.index
+  let showNum = map[index]
+
   let renderSquare = showNum === -1 ? (
     <button
+      key={index}
 			className="square"
 			onClick={props.onClick}
 		/>
   ) : (
     <button
+    key={index}
       disabled
       className="square"
     >

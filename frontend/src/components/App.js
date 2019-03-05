@@ -9,20 +9,21 @@ class App extends React.Component{
     super(props)
     this.state = {
       uid: null,
-      start: false
+      start: false,
+      map: [],
+      isMine: false
     }
   }
 
   handleNewGame = () => {
     axios.get('http://127.0.0.1:8000/newGame/')
       .then(response => {
-        console.log('---',response)
+        console.log('---',response.data)
         let data = response.data
         this.setState({
           start: true,
           uid: data.uid,
-          map: data.map,
-          isMine: data.isMine
+          map: data.map
         })
       }).catch(error => {
         console.log(error)
