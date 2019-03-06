@@ -15,6 +15,7 @@ export default function Game(props) {
 
   let handleClick = (num) => {
     let data = {
+      uid: uid,
       position: num
     }
 
@@ -22,7 +23,7 @@ export default function Game(props) {
     axios.defaults.xsrfHeaderName = 'X-CSRFToken'
     axios({
       method: 'post',
-      url: 'http://127.0.0.1:8000/moves/' + num + '/',
+      url: 'http://127.0.0.1:8000/moves/',
       data: JSON.stringify(data)
     })
   }
