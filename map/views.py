@@ -25,8 +25,8 @@ def createMap(request):
   mapModel = Map(uid=uid, mineMap=fullMapLocation, currentMap=newCurrentMap)
   mapModel.save()
   return JsonResponse({
-    "uid": uid,
-    "map": newCurrentMap
+    'uid': uid,
+    'map': newCurrentMap
   })
 
 def changeMap(request, move):
@@ -41,8 +41,12 @@ def changeMap(request, move):
 
 def searchGame(request, uid):
   try:
-    searchResult = Map.objects.filter(uid=uid).first()
+    searchResult = Map.objects.get(uid=uid)
     print(searchResult)
+    print(searchResult.uid)
   except:
-    print('--')
-  return JsonResponse({})
+    print('error')
+  return JsonResponse({
+    'uid': searchResult.uid,
+    'map': searchResult.currentMap
+  })

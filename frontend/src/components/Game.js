@@ -78,7 +78,7 @@ function Square(props) {
 		/>
   ) : (
     <button
-    key={index}
+      key={index}
       disabled
       className="square"
     >
