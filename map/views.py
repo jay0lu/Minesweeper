@@ -31,19 +31,34 @@ def createMap(request):
 
 def changeMap(request, move):
   if request.method == "POST":
-    print(move)
     data = json.loads(request.body.decode('utf-8'))
-    index = data["position"]
-    mapObj = Map.objects.all()[0]
-    mapObj.mineMap = str(index)
-    mapObj.save()
+    index = move
+    try:
+      searchResult = Map.objects.get(uid=uid)
+    except:
+      print('error')
+
+    map = searchResult.map
+    uid = searchResult.uid
+    if map[move] == 9:
+      return JsonResponse({
+        'uid': uid
+        'isMine': true
+      })
+    else:
+      currentMap[move] = map[move]
+      mapModel = Map(uid=uid, mineMap=map, currentMap=currentMap)
+      mapModel.save()
+      return JsonResponse({
+        'uid': uid
+        'map': currentMap
+      })
+
     return JsonResponse({})
 
 def searchGame(request, uid):
   try:
     searchResult = Map.objects.get(uid=uid)
-    print(searchResult)
-    print(searchResult.uid)
   except:
     print('error')
   return JsonResponse({
