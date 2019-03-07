@@ -6,6 +6,7 @@ import json
 from .mineMap import generateMap
 import random
 import string
+import ast
 
 class MapCreate(generics.ListCreateAPIView):
   queryset = Map.objects.all()
@@ -44,8 +45,8 @@ def changeMap(request):
     print(searchResult)
     mapStr = searchResult.mineMap
     currentMapStr = searchResult.currentMap
-    map = mapStr.split()
-    currentMap = currentMapStr.split()
+    map = ast.literal_eval(mapStr)
+    currentMap = ast.literal_eval(currentMapStr)
 
     if map[move] == 9:
       return JsonResponse({
@@ -53,7 +54,6 @@ def changeMap(request):
         'isMine': true
       })
     else:
-
       currentMap[move] = map[move]
       searchResult.currentMap = currentMap
       searchResult.save()
