@@ -82,7 +82,9 @@ function Square(props) {
       key={index}
 			className="square"
 			onClick={props.onClick}
-		/>
+		>
+      {'  '}
+    </button>
   ) : (
     <button
       key={index}

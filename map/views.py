@@ -52,7 +52,7 @@ def changeMap(request):
       return JsonResponse({
         'uid': uid,
         'map': currentMap,
-        'isMine': true
+        'isMine': 'true'
       })
     else:
       currentMap[move] = map[move]
@@ -61,7 +61,7 @@ def changeMap(request):
       return JsonResponse({
         'uid': uid,
         'map': currentMap,
-        'isMine': false
+        'isMine': 'false'
       })
 
 def searchGame(request, uid):

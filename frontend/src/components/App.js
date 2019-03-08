@@ -56,7 +56,7 @@ class App extends React.Component{
         map={this.state.map}
         uid={this.state.uid}
         isMine={this.state.isMine}
-        updateMap={updateMap}
+        updateMap={this.updateMap}
       />
     ) : (
       <WelcomePage
