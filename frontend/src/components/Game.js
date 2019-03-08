@@ -25,6 +25,12 @@ export default function Game(props) {
       method: 'post',
       url: 'http://127.0.0.1:8000/moves/',
       data: JSON.stringify(data)
+    }).then(response => {
+      let obj = {
+        map: response.data.map,
+        isMine: response.data.isMine
+      }
+      props.updateMap(obj)
     })
   }
 

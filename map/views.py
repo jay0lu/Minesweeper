@@ -51,6 +51,7 @@ def changeMap(request):
     if map[move] == 9:
       return JsonResponse({
         'uid': uid,
+        'map': currentMap,
         'isMine': true
       })
     else:
@@ -59,7 +60,8 @@ def changeMap(request):
       searchResult.save()
       return JsonResponse({
         'uid': uid,
-        'map': currentMap
+        'map': currentMap,
+        'isMine': false
       })
 
 def searchGame(request, uid):

@@ -43,12 +43,20 @@ class App extends React.Component{
       })
   }
 
+  updateMap = (obj) => {
+    this.setState({
+      map: obj.map,
+      isMine: obj.isMine
+    })
+  }
+
   render() {
     let renderedComponent = this.state.start ? (
       <Game
         map={this.state.map}
         uid={this.state.uid}
         isMine={this.state.isMine}
+        updateMap={updateMap}
       />
     ) : (
       <WelcomePage
