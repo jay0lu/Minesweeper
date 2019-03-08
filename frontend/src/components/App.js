@@ -3,6 +3,12 @@ import ReactDOM from "react-dom"
 import axios from 'axios'
 import WelcomePage from './WelcomePage'
 import Game from './Game'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import Button from '@material-ui/core/Button'
 
 class App extends React.Component{
   constructor(props) {
@@ -22,7 +28,8 @@ class App extends React.Component{
         this.setState({
           start: true,
           uid: data.uid,
-          map: data.map
+          map: data.map,
+          isMine: false
         })
       }).catch(error => {
         console.log(error)
@@ -51,13 +58,40 @@ class App extends React.Component{
   }
 
   render() {
+    let open = this.state.isMine === 'true'
+    let endGame = (
+      <Dialog
+        open={open}
+        disableBackdropClick={true}
+        keepMounted
+        onClose={this.handleNewGame}
+      >
+        <DialogTitle>
+          {"Game Over"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {"This is a mine!"}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleNewGame} color="primary">
+            {'New Game'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    )
+
     let renderedComponent = this.state.start ? (
-      <Game
-        map={this.state.map}
-        uid={this.state.uid}
-        isMine={this.state.isMine}
-        updateMap={this.updateMap}
-      />
+      <div>
+        <Game
+          map={this.state.map}
+          uid={this.state.uid}
+          isMine={this.state.isMine}
+          updateMap={this.updateMap}
+        />
+        {endGame}
+      </div>
     ) : (
       <WelcomePage
         handleNewGame={this.handleNewGame}
@@ -65,6 +99,9 @@ class App extends React.Component{
         handleContinue={this.handleContinue}
       />
     )
+
+    // let appComponent = open ? endGame : renderedComponent
+
     return renderedComponent
   }
 }
