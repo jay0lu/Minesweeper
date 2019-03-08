@@ -69,7 +69,9 @@ def searchGame(request, uid):
     searchResult = Map.objects.get(uid=uid)
   except:
     print('error')
+
+  currentMap = ast.literal_eval(searchResult.currentMap)
   return JsonResponse({
     'uid': searchResult.uid,
-    'map': searchResult.currentMap
+    'map': currentMap
   })

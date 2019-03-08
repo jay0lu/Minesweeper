@@ -44,7 +44,13 @@ class App extends React.Component{
     let uid = this.state.uid
     axios.get('http://127.0.0.1:8000/game/' + uid + '/')
       .then(response => {
-        this.setState({ start: true })
+        let data = response.data
+        this.setState({
+          start: true,
+          uid: data.uid,
+          map: data.map,
+          isMine: false
+        })
       }).catch(error => {
         console.log(error)
       })
