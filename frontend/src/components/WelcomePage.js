@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField'
 
 function WelcomePage(props) {
   return(
-    <div>
+    <div align="center">
       <Grid container spacing={24}>
         <Grid item xs={12}>
           <h1>Minesweeper</h1>
@@ -24,7 +24,8 @@ function WelcomePage(props) {
         <Grid item xs={12}>
           {' or '}
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={3}></Grid>
+        <Grid item xs={3}>
           <TextField
             label="Enter id"
             variant="outlined"
@@ -32,13 +33,14 @@ function WelcomePage(props) {
             onChange={props.handleChangeId}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={3}>
           <Button
             onClick={props.handleContinue}
             variant="contained"
           >
             Continue
           </Button>
+        <Grid item xs={3}></Grid>
         </Grid>
       </Grid>
     </div>
